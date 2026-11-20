@@ -29,7 +29,7 @@
             android:background="@drawable/bg_pill_white"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
-            android:text="To-Do list"
+            android:text="@string/to_do_list1"
             android:textColor="@color/text_dark"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -40,7 +40,7 @@
             android:layout_height="56dp"
             android:layout_marginStart="12dp"
             android:background="@drawable/bg_button_white"
-            android:contentDescription="Notifications"
+            android:contentDescription="@string/notifications1"
             android:src="@android:drawable/ic_popup_reminder"
             app:tint="@color/border_dark" />
 
@@ -54,7 +54,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/bg_button_white"
-        android:contentDescription="Back"
+        android:contentDescription="@string/back"
         android:src="@android:drawable/ic_menu_revert"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topBar"
@@ -70,7 +70,7 @@
         android:elevation="4dp"
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
-        android:text="Add task"
+        android:text="@string/add_task1"
         android:textColor="@color/text_dark"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -108,6 +108,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
+                style="?android:attr/buttonBarStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -119,7 +120,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
-                    android:text="Task Title"
+                    android:text="@string/task_title"
                     android:textColor="@color/text_dark"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -133,7 +134,7 @@
                     android:autofillHints="name"
                     android:background="@drawable/bg_edit_text"
                     android:fontFamily="sans-serif"
-                    android:hint="Enter task title"
+                    android:hint="@string/enter_task_title"
                     android:inputType="text"
                     android:paddingHorizontal="12dp"
                     android:textColor="@color/text_dark"
@@ -144,7 +145,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
-                    android:text="Description (optional)"
+                    android:text="@string/description_optional"
                     android:textColor="@color/text_dark"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -159,7 +160,7 @@
                     android:background="@drawable/bg_edit_text"
                     android:fontFamily="sans-serif"
                     android:gravity="top|start"
-                    android:hint="Enter a short description"
+                    android:hint="@string/enter_a_short_description"
                     android:inputType="textMultiLine"
                     android:padding="12dp"
                     android:textColor="@color/text_dark"
@@ -170,7 +171,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
-                    android:text="Category"
+                    android:text="@string/category"
                     android:textColor="@color/text_dark"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -188,7 +189,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
-                    android:text="Due Date"
+                    android:text="@string/due_date1"
                     android:textColor="@color/text_dark"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -201,7 +202,7 @@
                     android:autofillHints="date"
                     android:background="@drawable/bg_edit_text"
                     android:fontFamily="sans-serif"
-                    android:hint="mm/dd/yyyy"
+                    android:hint="@string/mm_dd_yyyy"
                     android:inputType="date"
                     android:paddingHorizontal="12dp"
                     android:textColor="@color/text_dark"
@@ -213,6 +214,7 @@
         <!-- Bottom Action Buttons -->
         <LinearLayout
             android:id="@+id/layoutButtons"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="52dp"
             android:orientation="horizontal"
@@ -222,31 +224,35 @@
 
             <Button
                 android:id="@+id/btnSaveTask"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginEnd="8dp"
+                android:layout_weight="1"
                 android:background="@drawable/bg_button_teal"
                 android:fontFamily="sans-serif-medium"
-                android:text="Save Task"
+                android:text="@string/save_task"
                 android:textColor="@color/text_dark"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:backgroundTint="@null" />
+                app:backgroundTint="@null"
+                tools:ignore="TouchTargetSizeCheck" />
 
             <Button
                 android:id="@+id/btnCancel"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginStart="8dp"
+                android:layout_weight="1"
                 android:background="@drawable/bg_button_white"
                 android:fontFamily="sans-serif-medium"
-                android:text="Cancel"
+                android:text="@string/cancel"
                 android:textColor="@color/text_dark"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:backgroundTint="@null" />
+                app:backgroundTint="@null"
+                tools:ignore="TouchTargetSizeCheck" />
 
         </LinearLayout>
 

@@ -9,15 +9,6 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/addtask" />
-            <option value="$PROJECT_DIR$/addtasks" />
-            <option value="$PROJECT_DIR$/addtasks2" />
-            <option value="$PROJECT_DIR$/app" />
-          </set>
-        </option>
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
           </set>
         </option>

@@ -1,3 +1,37 @@
 <resources>
     <string name="app_name">ApplicationProject</string>
+    <string name="to_do_list">To-Do list</string>
+    <string name="add_task">Add Task</string>
+    <string name="notifications">Notifications</string>
+    <string name="completed">Completed</string>
+    <string name="group_project">Group Project</string>
+    <string name="undo">Undo</string>
+    <string name="delete">Delete</string>
+    <string name="due_date_n11_21_26">Due date:\n11/21/26</string>
+    <string name="review_for_examination">Review for Examination</string>
+    <string name="undo1">Undo</string>
+    <string name="delete1">Delete</string>
+    <string name="due_date_n11_17_26">Due date:\n11/17/26</string>
+    <string name="home">Home</string>
+    <string name="completed1">Completed</string>
+    <string name="to_do_list1">To-Do list</string>
+    <string name="notifications1">Notifications</string>
+    <string name="back">Back</string>
+    <string name="add_task1">Add task</string>
+    <string name="task_title">Task Title</string>
+    <string name="enter_task_title">Enter task title</string>
+    <string name="description_optional">Description (optional)</string>
+    <string name="enter_a_short_description">Enter a short description</string>
+    <string name="category">Category</string>
+    <string name="due_date1">Due Date</string>
+    <string name="mm_dd_yyyy">mm/dd/yyyy</string>
+    <string name="save_task">Save Task</string>
+    <string name="cancel">Cancel</string>
+    <string name="to_do_list2">To-Do list</string>
+    <string name="back1">Back</string>
+    <string name="notifications2">Notifications</string>
+    <string name="coding_assignment">Coding Assignment</string>
+    <string name="due_date_11_20_26">Due date: 11/20/26</string>
+    <string name="your_coding_assignment_is_due_soon">Your coding assignment is due soon.</string>
+    <string name="dismiss">Dismiss</string>
 </resources>

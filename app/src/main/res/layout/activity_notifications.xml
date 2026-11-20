@@ -29,7 +29,7 @@
             android:background="@drawable/bg_pill_white"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
-            android:text="To-Do list"
+            android:text="@string/to_do_list2"
             android:textColor="@color/text_dark"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -44,7 +44,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/bg_button_white"
-        android:contentDescription="Back"
+        android:contentDescription="@string/back1"
         android:src="@android:drawable/ic_menu_revert"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topBar"
@@ -60,7 +60,7 @@
         android:elevation="4dp"
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
-        android:text="Notifications"
+        android:text="@string/notifications2"
         android:textColor="@color/text_dark"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -102,7 +102,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="Coding Assignment"
+                android:text="@string/coding_assignment"
                 android:textColor="@color/text_dark"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -113,7 +113,7 @@
                 android:layout_marginBottom="12dp"
                 android:background="@drawable/bg_date_badge"
                 android:padding="8dp"
-                android:text="Due date: 11/20/26"
+                android:text="@string/due_date_11_20_26"
                 android:textColor="@color/text_dark"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -123,7 +123,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
                 android:fontFamily="sans-serif"
-                android:text="Your coding assignment is due soon."
+                android:text="@string/your_coding_assignment_is_due_soon"
                 android:textColor="@color/text_dark"
                 android:textSize="15sp" />
 
@@ -133,7 +133,7 @@
                 android:layout_height="48dp"
                 android:background="@drawable/bg_button_white"
                 android:fontFamily="sans-serif-medium"
-                android:text="Dismiss"
+                android:text="@string/dismiss"
                 android:textColor="@color/text_dark"
                 android:textSize="16sp"
                 android:textStyle="bold"

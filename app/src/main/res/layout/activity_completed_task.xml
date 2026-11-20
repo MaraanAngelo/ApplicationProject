@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    style="?android:attr/buttonBarStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_teal"
@@ -29,7 +30,7 @@
             android:background="@drawable/bg_pill_white"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
-            android:text="To-Do list"
+            android:text="@string/to_do_list"
             android:textColor="@color/text_dark"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -40,7 +41,7 @@
             android:layout_height="56dp"
             android:layout_marginStart="12dp"
             android:background="@drawable/bg_button_white"
-            android:contentDescription="Notifications"
+            android:contentDescription="@string/notifications"
             android:src="@android:drawable/ic_popup_reminder"
             app:tint="@color/border_dark" />
 
@@ -50,7 +51,7 @@
             android:layout_height="56dp"
             android:layout_marginStart="12dp"
             android:background="@drawable/bg_button_white"
-            android:contentDescription="Add Task"
+            android:contentDescription="@string/add_task"
             android:src="@android:drawable/ic_input_add"
             app:tint="@color/border_dark" />
 
@@ -66,7 +67,7 @@
         android:elevation="4dp"
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
-        android:text="Completed"
+        android:text="@string/completed"
         android:textColor="@color/text_dark"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -78,6 +79,7 @@
     <!-- Main Content Card -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mainCard"
+        style="?android:attr/buttonBarStyle"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="24dp"
@@ -94,6 +96,7 @@
         app:layout_constraintTop_toBottomOf="@id/topBar">
 
         <ScrollView
+            style="?android:attr/buttonBarStyle"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:fillViewport="true"
@@ -121,7 +124,8 @@
                         android:layout_height="wrap_content"
                         android:checked="true"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="DuplicateSpeakableTextCheck" />
 
                     <TextView
                         android:id="@+id/tvGroupTitle"
@@ -130,7 +134,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="12dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Group Project"
+                        android:text="@string/group_project"
                         android:textColor="@color/text_dark"
                         android:textSize="18sp"
                         android:textStyle="bold"
@@ -155,10 +159,11 @@
                             android:background="?attr/selectableItemBackground"
                             android:clickable="true"
                             android:focusable="true"
-                            android:text="Undo"
+                            android:text="@string/undo"
                             android:textColor="@color/text_dark"
                             android:textSize="14sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
 
                         <TextView
                             android:id="@+id/tvDelete1"
@@ -167,10 +172,11 @@
                             android:background="?attr/selectableItemBackground"
                             android:clickable="true"
                             android:focusable="true"
-                            android:text="Delete"
+                            android:text="@string/delete"
                             android:textColor="@color/text_dark"
                             android:textSize="14sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
                     </LinearLayout>
 
                     <TextView
@@ -180,7 +186,7 @@
                         android:background="@drawable/bg_date_badge"
                         android:fontFamily="sans-serif"
                         android:padding="8dp"
-                        android:text="Due date:\n11/21/26"
+                        android:text="@string/due_date_n11_21_26"
                         android:textColor="@color/text_dark"
                         android:textSize="13sp"
                         android:textStyle="bold"
@@ -191,6 +197,7 @@
 
                 <!-- Task 2: Review for Examination (Completed) -->
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    style="?android:attr/buttonBarStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -209,7 +216,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="12dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Review for Examination"
+                        android:text="@string/review_for_examination"
                         android:textColor="@color/text_dark"
                         android:textSize="18sp"
                         android:textStyle="bold"
@@ -234,10 +241,11 @@
                             android:background="?attr/selectableItemBackground"
                             android:clickable="true"
                             android:focusable="true"
-                            android:text="Undo"
+                            android:text="@string/undo1"
                             android:textColor="@color/text_dark"
                             android:textSize="14sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:ignore="TouchTargetSizeCheck" />
 
                         <TextView
                             android:id="@+id/tvDelete2"
@@ -246,10 +254,11 @@
                             android:background="?attr/selectableItemBackground"
                             android:clickable="true"
                             android:focusable="true"
-                            android:text="Delete"
+                            android:text="@string/delete1"
                             android:textColor="@color/text_dark"
                             android:textSize="14sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:ignore="TouchTargetSizeCheck" />
                     </LinearLayout>
 
                     <TextView
@@ -259,7 +268,7 @@
                         android:background="@drawable/bg_date_badge"
                         android:fontFamily="sans-serif"
                         android:padding="8dp"
-                        android:text="Due date:\n11/17/26"
+                        android:text="@string/due_date_n11_17_26"
                         android:textColor="@color/text_dark"
                         android:textSize="13sp"
                         android:textStyle="bold"
@@ -276,6 +285,7 @@
     <!-- Bottom Navigation Bar -->
     <LinearLayout
         android:id="@+id/bottomNav"
+        style="?android:attr/buttonBarButtonStyle"
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:layout_marginStart="24dp"
@@ -288,13 +298,14 @@
 
         <Button
             android:id="@+id/btnHomeNav"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:layout_marginEnd="8dp"
             android:background="@drawable/bg_button_white"
             android:fontFamily="sans-serif-medium"
-            android:text="Home"
+            android:text="@string/home"
             android:textColor="@color/text_dark"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -304,15 +315,16 @@
             android:id="@+id/btnCompletedNav"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_marginStart="8dp"
+            android:layout_weight="1"
             android:background="@drawable/bg_button_teal"
             android:fontFamily="sans-serif-medium"
-            android:text="Completed"
+            android:text="@string/completed1"
             android:textColor="@color/text_dark"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:backgroundTint="@null" />
+            app:backgroundTint="@null"
+            tools:ignore="ButtonStyle,DuplicateSpeakableTextCheck" />
 
     </LinearLayout>
 
