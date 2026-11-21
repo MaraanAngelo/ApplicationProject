@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,9 +18,6 @@ import androidx.core.view.WindowInsetsCompat;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class CompletedActivity extends AppCompatActivity {
     private LinearLayout taskList;
@@ -126,24 +124,13 @@ public class CompletedActivity extends AppCompatActivity {
         title.setLayoutParams(new LinearLayout.LayoutParams(0, -2, 1));
         titleRow.addView(title);
 
-        TextView reopenBtn = new TextView(this);
-        reopenBtn.setText(R.string.undo);
-        reopenBtn.setTextColor(getColor(R.color.app_teal));
-        reopenBtn.setTextSize(14);
-        reopenBtn.setTypeface(null, android.graphics.Typeface.BOLD);
-        reopenBtn.setGravity(Gravity.CENTER);
-        reopenBtn.setMinWidth(dp(52));
-        reopenBtn.setMinHeight(dp(44));
-        reopenBtn.setOnClickListener(v -> reopenTask(task));
-        titleRow.addView(reopenBtn);
-
         TextView edit = new TextView(this);
         edit.setText(R.string.edit);
-        edit.setTextColor(getColor(R.color.text_dark));
+        edit.setTextColor(getColor(R.color.app_teal));
         edit.setTextSize(14);
         edit.setTypeface(null, android.graphics.Typeface.BOLD);
         edit.setGravity(Gravity.CENTER);
-        edit.setMinWidth(dp(48));
+        edit.setMinWidth(dp(52));
         edit.setMinHeight(dp(44));
         edit.setOnClickListener(v -> openEditTask(task));
         titleRow.addView(edit);
@@ -165,35 +152,6 @@ public class CompletedActivity extends AppCompatActivity {
         params.bottomMargin = dp(10);
         row.setLayoutParams(params);
         return row;
-    }
-
-    private void reopenTask(Task task) {
-        Map<String, String> parameters = new HashMap<>();
-        parameters.put("id", String.valueOf(task.id));
-        parameters.put("title", task.title);
-        parameters.put("description", task.description);
-        parameters.put("priority", task.priority);
-        parameters.put("due_date", task.dueDate);
-        if (task.dueTime != null && !task.dueTime.isEmpty()) {
-            parameters.put("due_time", task.dueTime);
-        }
-        if (task.categoryId > 0) {
-            parameters.put("category_id", String.valueOf(task.categoryId));
-        }
-        parameters.put("status", "Pending");
-
-        ApiClient.post("update_task.php", parameters, new ApiClient.Callback() {
-            @Override
-            public void onSuccess(String response) {
-                Toast.makeText(CompletedActivity.this, "Task moved to Pending", Toast.LENGTH_SHORT).show();
-                loadTasks();
-            }
-
-            @Override
-            public void onError(Exception error) {
-                Toast.makeText(CompletedActivity.this, getString(R.string.connection_error, error.getMessage()), Toast.LENGTH_LONG).show();
-            }
-        });
     }
 
     private void openEditTask(Task task) {

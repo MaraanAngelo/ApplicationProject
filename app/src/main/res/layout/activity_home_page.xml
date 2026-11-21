@@ -34,8 +34,7 @@
                 android:text="@string/home_title"
                 android:textColor="@color/white"
                 android:textSize="26sp"
-                android:textStyle="bold"
-                tools:ignore="VisualLintSystemUi" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvTaskCount"
@@ -43,42 +42,29 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="@string/loading_tasks"
-                android:textColor="#212121"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
         </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/btnServerSettings"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:layout_marginEnd="6dp"
-            android:background="@drawable/bg_button_white"
-            android:contentDescription="@string/server_settings"
-            android:src="@android:drawable/ic_menu_preferences"
-            app:tint="@color/text_dark"
-            tools:ignore="TouchTargetSizeCheck" />
 
         <ImageButton
             android:id="@+id/btnCategories"
             android:layout_width="44dp"
             android:layout_height="44dp"
-            android:layout_marginEnd="6dp"
+            android:layout_marginEnd="8dp"
             android:background="@drawable/bg_button_white"
             android:contentDescription="@string/category_button"
             android:src="@android:drawable/ic_menu_sort_by_size"
-            app:tint="@color/text_dark"
-            tools:ignore="TouchTargetSizeCheck" />
+            app:tint="@color/text_dark" />
 
         <ImageButton
             android:id="@+id/btnNotification"
             android:layout_width="44dp"
             android:layout_height="44dp"
-            android:layout_marginEnd="6dp"
+            android:layout_marginEnd="8dp"
             android:background="@drawable/bg_button_white"
             android:contentDescription="@string/notifications3"
             android:src="@android:drawable/ic_popup_reminder"
-            app:tint="@color/text_dark"
-            tools:ignore="TouchTargetSizeCheck" />
+            app:tint="@color/text_dark" />
 
         <ImageButton
             android:id="@+id/btnAdd"
@@ -87,13 +73,11 @@
             android:background="@drawable/bg_button_white"
             android:contentDescription="@string/add_task"
             android:src="@android:drawable/ic_input_add"
-            app:tint="@color/text_dark"
-            tools:ignore="TouchTargetSizeCheck" />
+            app:tint="@color/text_dark" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mainCard"
-        style="?android:attr/buttonBarStyle"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
@@ -140,12 +124,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/spinnerCategoryFilter"
-            tools:ignore="SpeakableTextPresentCheck">
+            app:layout_constraintTop_toBottomOf="@id/spinnerCategoryFilter">
 
             <LinearLayout
                 android:id="@+id/taskList"
-                style="?android:attr/buttonBarStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -155,7 +137,6 @@
 
     <LinearLayout
         android:id="@+id/bottomNav"
-        style="?android:attr/buttonBarButtonStyle"
         android:layout_width="0dp"
         android:layout_height="54dp"
         android:layout_marginStart="20dp"
@@ -168,7 +149,6 @@
 
         <Button
             android:id="@+id/btnHomeNav"
-            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="6dp"
@@ -177,8 +157,7 @@
             android:text="@string/home1"
             android:textColor="@color/text_dark"
             android:textStyle="bold"
-            app:backgroundTint="@null"
-            tools:ignore="TouchTargetSizeCheck,VisualLintButtonSize" />
+            app:backgroundTint="@null" />
 
         <Button
             android:id="@+id/btnCompletedNav"
@@ -190,7 +169,6 @@
             android:text="@string/completed2"
             android:textColor="@color/text_dark"
             android:textStyle="bold"
-            app:backgroundTint="@null"
-            tools:ignore="ButtonStyle,TouchTargetSizeCheck,VisualLintButtonSize" />
+            app:backgroundTint="@null" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

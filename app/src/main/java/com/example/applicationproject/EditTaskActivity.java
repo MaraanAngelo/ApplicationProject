@@ -1,7 +1,5 @@
 package com.example.applicationproject;
 
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -22,9 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 public class EditTaskActivity extends AppCompatActivity {
@@ -32,8 +28,6 @@ public class EditTaskActivity extends AppCompatActivity {
     private ArrayAdapter<Category> categoryAdapter;
     private Spinner spinnerCategory;
     private Spinner spinnerPriority;
-    private EditText etDueDate;
-    private EditText etDueTime;
     private Button btnSaveChanges;
     private Button btnDelete;
     private int taskId;
@@ -58,14 +52,10 @@ public class EditTaskActivity extends AppCompatActivity {
                 .setText(getIntent().getStringExtra("task_title"));
         ((EditText) findViewById(R.id.etDescription))
                 .setText(getIntent().getStringExtra("task_description"));
-
-        etDueDate = findViewById(R.id.etDueDate);
-        etDueTime = findViewById(R.id.etDueTime);
-
-        etDueDate.setText(Task.toFormDate(getIntent().getStringExtra("task_due_date")));
-        etDueTime.setText(Task.toDisplayTime(getIntent().getStringExtra("task_due_time")));
-
-        setupDateAndTimePickers();
+        ((EditText) findViewById(R.id.etDueDate))
+                .setText(Task.toFormDate(getIntent().getStringExtra("task_due_date")));
+        ((EditText) findViewById(R.id.etDueTime))
+                .setText(Task.toDisplayTime(getIntent().getStringExtra("task_due_time")));
 
         spinnerCategory = findViewById(R.id.spinnerCategory);
         categories.add(new Category(0, getString(R.string.no_category)));
@@ -103,47 +93,6 @@ public class EditTaskActivity extends AppCompatActivity {
                 .setNegativeButton(R.string.cancel, null)
                 .setPositiveButton(R.string.delete, (dialog, which) -> deleteTask())
                 .show());
-    }
-
-    private void setupDateAndTimePickers() {
-        etDueDate.setFocusable(false);
-        etDueDate.setClickable(true);
-        etDueDate.setOnClickListener(v -> {
-            Calendar calendar = Calendar.getInstance();
-            int year = calendar.get(Calendar.YEAR);
-            int month = calendar.get(Calendar.MONTH);
-            int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-            DatePickerDialog datePickerDialog = new DatePickerDialog(
-                    EditTaskActivity.this,
-                    (view, selectedYear, selectedMonth, selectedDay) -> {
-                        String formatted = String.format(Locale.US, "%02d/%02d/%04d", selectedMonth + 1, selectedDay, selectedYear);
-                        etDueDate.setText(formatted);
-                        etDueDate.setError(null);
-                    },
-                    year, month, day
-            );
-            datePickerDialog.show();
-        });
-
-        etDueTime.setFocusable(false);
-        etDueTime.setClickable(true);
-        etDueTime.setOnClickListener(v -> {
-            Calendar calendar = Calendar.getInstance();
-            int hour = calendar.get(Calendar.HOUR_OF_DAY);
-            int minute = calendar.get(Calendar.MINUTE);
-
-            TimePickerDialog timePickerDialog = new TimePickerDialog(
-                    EditTaskActivity.this,
-                    (view, selectedHour, selectedMinute) -> {
-                        String formatted = String.format(Locale.US, "%02d:%02d", selectedHour, selectedMinute);
-                        etDueTime.setText(formatted);
-                        etDueTime.setError(null);
-                    },
-                    hour, minute, true
-            );
-            timePickerDialog.show();
-        });
     }
 
     private void loadCategories() {
@@ -192,6 +141,8 @@ public class EditTaskActivity extends AppCompatActivity {
     private void saveChanges() {
         EditText titleField = findViewById(R.id.etTaskTitle);
         EditText descriptionField = findViewById(R.id.etDescription);
+        EditText dueDateField = findViewById(R.id.etDueDate);
+        EditText dueTimeField = findViewById(R.id.etDueTime);
         String title = titleField.getText().toString().trim();
         if (title.isEmpty()) {
             titleField.setError(getString(R.string.title_required));
@@ -206,26 +157,19 @@ public class EditTaskActivity extends AppCompatActivity {
             return;
         }
 
-        String rawDate = etDueDate.getText().toString().trim();
-        if (rawDate.isEmpty()) {
-            etDueDate.setError(getString(R.string.title_required));
-            Toast.makeText(this, "Please select a due date.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         final String dueDate;
         try {
-            dueDate = Task.toDatabaseDate(rawDate);
+            dueDate = Task.toDatabaseDate(dueDateField.getText().toString().trim());
         } catch (IllegalArgumentException error) {
-            etDueDate.setError(error.getMessage());
+            dueDateField.setError(error.getMessage());
             return;
         }
 
         final String dueTime;
         try {
-            dueTime = Task.toDatabaseTime(etDueTime.getText().toString());
+            dueTime = Task.toDatabaseTime(dueTimeField.getText().toString());
         } catch (IllegalArgumentException error) {
-            etDueTime.setError(error.getMessage());
+            dueTimeField.setError(error.getMessage());
             return;
         }
 
