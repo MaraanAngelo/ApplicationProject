@@ -9,71 +9,47 @@
     tools:context=".MainActivity">
 
     <!-- Top Header Bar -->
-    <LinearLayout
-        android:id="@+id/topBar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <!-- To-Do list Title Pill -->
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_pill_white"
-            android:fontFamily="sans-serif-medium"
-            android:gravity="center"
-            android:text="To-Do list"
-            android:textColor="@color/text_dark"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <!-- Notification Bell Button -->
-        <ImageButton
-            android:id="@+id/btnNotification"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_marginStart="12dp"
-            android:background="@drawable/bg_button_white"
-            android:contentDescription="Notifications"
-            android:src="@android:drawable/ic_popup_reminder"
-            app:tint="@color/border_dark" />
-
-        <!-- Add Task Plus Button -->
-        <ImageButton
-            android:id="@+id/btnAdd"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_marginStart="12dp"
-            android:background="@drawable/bg_button_white"
-            android:contentDescription="Add Task"
-            android:src="@android:drawable/ic_input_add"
-            app:tint="@color/border_dark" />
-
-    </LinearLayout>
 
     <!-- Main Content Card -->
+
+    <ImageButton
+        android:id="@+id/btnAdd"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/bg_button_white"
+        android:contentDescription="Add Task"
+        android:src="@android:drawable/ic_input_add"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/border_dark"
+        tools:ignore="HardcodedText,TouchTargetSizeCheck" />
+
+    <ImageButton
+        android:id="@+id/btnNotification"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/bg_button_white"
+        android:contentDescription="@string/notifications3"
+        android:src="@android:drawable/ic_popup_reminder"
+        app:layout_constraintEnd_toStartOf="@+id/btnAdd"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/border_dark"
+        tools:ignore="TouchTargetSizeCheck" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mainCard"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="363dp"
+        android:layout_height="523dp"
         android:background="@drawable/bg_card_cream"
         android:padding="16dp"
-        app:layout_constraintBottom_toTopOf="@id/bottomNav"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topBar">
+        tools:layout_editor_absoluteX="24dp"
+        tools:layout_editor_absoluteY="96dp"
+        tools:ignore="MissingConstraints">
 
         <!-- Category Header (Homework) -->
 
@@ -85,7 +61,7 @@
             android:background="@drawable/bg_header_teal"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
-            android:text="Homework"
+            android:text="@string/homework"
             android:textColor="@color/text_dark"
             android:textSize="22sp"
             android:textStyle="bold"
@@ -119,7 +95,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="DuplicateSpeakableTextCheck" />
 
                 <TextView
                     android:id="@+id/tvCodingTitle"
@@ -128,7 +105,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="12dp"
                     android:fontFamily="sans-serif-medium"
-                    android:text="Coding Assignment"
+                    android:text="@string/coding_assignment1"
                     android:textColor="@color/text_dark"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -145,12 +122,15 @@
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
-                    android:text="Edit"
+                    android:minWidth="48dp"
+                    android:minHeight="48dp"
+                    android:text="@string/edit1"
                     android:textColor="@color/text_dark"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@id/cbCoding"
-                    app:layout_constraintTop_toBottomOf="@id/tvCodingTitle" />
+                    app:layout_constraintTop_toBottomOf="@id/tvCodingTitle"
+                    tools:ignore="DuplicateSpeakableTextCheck" />
 
                 <!-- Due Date Card 1 -->
                 <TextView
@@ -160,7 +140,7 @@
                     android:background="@drawable/bg_date_badge"
                     android:fontFamily="sans-serif"
                     android:padding="8dp"
-                    android:text="Due date:\n11/20/26"
+                    android:text="@string/due_date_n11_20_26"
                     android:textColor="@color/text_dark"
                     android:textSize="13sp"
                     android:textStyle="bold"
@@ -187,7 +167,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="12dp"
                     android:fontFamily="sans-serif-medium"
-                    android:text="Research Paper"
+                    android:text="@string/research_paper"
                     android:textColor="@color/text_dark"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -204,7 +184,9 @@
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
-                    android:text="Edit"
+                    android:minWidth="48dp"
+                    android:minHeight="48dp"
+                    android:text="@string/edit"
                     android:textColor="@color/text_dark"
                     android:textSize="14sp"
                     android:textStyle="bold"
@@ -219,7 +201,7 @@
                     android:background="@drawable/bg_date_badge"
                     android:fontFamily="sans-serif"
                     android:padding="8dp"
-                    android:text="Due date:\n12/15/27"
+                    android:text="@string/due_date_n12_15_27"
                     android:textColor="@color/text_dark"
                     android:textSize="13sp"
                     android:textStyle="bold"
@@ -235,6 +217,7 @@
     <!-- Bottom Navigation Bar -->
     <LinearLayout
         android:id="@+id/bottomNav"
+        style="?android:attr/buttonBarButtonStyle"
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:layout_marginStart="24dp"
@@ -248,13 +231,14 @@
         <!-- Home Button (Active) -->
         <Button
             android:id="@+id/btnHomeNav"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:layout_marginEnd="8dp"
             android:background="@drawable/bg_button_teal"
             android:fontFamily="sans-serif-medium"
-            android:text="Home"
+            android:text="@string/home1"
             android:textColor="@color/text_dark"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -269,12 +253,30 @@
             android:layout_marginStart="8dp"
             android:background="@drawable/bg_button_white"
             android:fontFamily="sans-serif-medium"
-            android:text="Completed"
+            android:text="@string/completed2"
             android:textColor="@color/text_dark"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:backgroundTint="@null" />
+            app:backgroundTint="@null"
+            tools:ignore="ButtonStyle" />
 
     </LinearLayout>
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_pill_white"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:text="@string/to_do_list3"
+        android:textColor="@color/text_dark"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextSizeCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,59 +10,59 @@
     tools:context=".CompletedActivity">
 
     <!-- Top Header Bar -->
-    <LinearLayout
-        android:id="@+id/topBar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
+    <TextView
+        android:layout_width="250dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_pill_white"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:text="@string/to_do_list"
+        android:textColor="@color/text_dark"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_pill_white"
-            android:fontFamily="sans-serif-medium"
-            android:gravity="center"
-            android:text="@string/to_do_list"
-            android:textColor="@color/text_dark"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <ImageButton
-            android:id="@+id/btnNotification"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_marginStart="12dp"
-            android:background="@drawable/bg_button_white"
-            android:contentDescription="@string/notifications"
-            android:src="@android:drawable/ic_popup_reminder"
-            app:tint="@color/border_dark" />
-
-        <ImageButton
-            android:id="@+id/btnAdd"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_marginStart="12dp"
-            android:background="@drawable/bg_button_white"
-            android:contentDescription="@string/add_task"
-            android:src="@android:drawable/ic_input_add"
-            app:tint="@color/border_dark" />
-
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Completed Header Banner (overlapping top border of cream card) -->
+
+    <!-- Main Content Card -->
+
+    <!-- Bottom Navigation Bar -->
+
+    <ImageButton
+        android:id="@+id/btnNotification"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/bg_button_white"
+        android:contentDescription="@string/notifications"
+        android:src="@android:drawable/ic_popup_reminder"
+        app:layout_constraintEnd_toStartOf="@+id/btnAdd"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/border_dark" />
+
+    <ImageButton
+        android:id="@+id/btnAdd"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/bg_button_white"
+        android:contentDescription="@string/add_task"
+        android:src="@android:drawable/ic_input_add"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/border_dark" />
+
     <TextView
         android:id="@+id/tvCategoryHeader"
         android:layout_width="220dp"
         android:layout_height="48dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="100dp"
         android:background="@drawable/bg_header_teal"
         android:elevation="4dp"
         android:fontFamily="sans-serif-medium"
@@ -73,27 +73,23 @@
         android:textStyle="bold"
         android:translationZ="4dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topBar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Main Content Card -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mainCard"
         style="?android:attr/buttonBarStyle"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_width="363dp"
+        android:layout_height="500dp"
+        android:layout_marginBottom="28dp"
         android:background="@drawable/bg_card_cream"
         android:paddingHorizontal="20dp"
         android:paddingTop="36dp"
         android:paddingBottom="20dp"
-        app:layout_constraintBottom_toTopOf="@id/bottomNav"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNav"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topBar">
+        app:layout_constraintStart_toStartOf="parent">
 
         <ScrollView
             style="?android:attr/buttonBarStyle"
@@ -116,7 +112,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="28dp">
+                    tools:layout_editor_absoluteY="8dp">
 
                     <CheckBox
                         android:id="@+id/cbGroup"
@@ -199,7 +195,8 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     style="?android:attr/buttonBarStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    tools:layout_editor_absoluteY="85dp">
 
                     <CheckBox
                         android:id="@+id/cbReview"
@@ -282,7 +279,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Bottom Navigation Bar -->
     <LinearLayout
         android:id="@+id/bottomNav"
         style="?android:attr/buttonBarButtonStyle"
@@ -290,10 +286,11 @@
         android:layout_height="64dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="16dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
@@ -301,8 +298,8 @@
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_marginEnd="8dp"
+            android:layout_weight="1"
             android:background="@drawable/bg_button_white"
             android:fontFamily="sans-serif-medium"
             android:text="@string/home"

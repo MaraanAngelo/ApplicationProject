@@ -9,63 +9,58 @@
     tools:context=".AddTaskActivity">
 
     <!-- Top Header Bar -->
-    <LinearLayout
-        android:id="@+id/topBar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_pill_white"
-            android:fontFamily="sans-serif-medium"
-            android:gravity="center"
-            android:text="@string/to_do_list1"
-            android:textColor="@color/text_dark"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <ImageButton
-            android:id="@+id/btnNotification"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_marginStart="12dp"
-            android:background="@drawable/bg_button_white"
-            android:contentDescription="@string/notifications1"
-            android:src="@android:drawable/ic_popup_reminder"
-            app:tint="@color/border_dark" />
-
-    </LinearLayout>
 
     <!-- Back Arrow Button -->
+
+    <!-- Add task Header Banner (overlapping top border of cream card) -->
+
+    <!-- Main Content Card -->
+    <ImageButton
+        android:id="@+id/btnNotification"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/bg_button_white"
+        android:contentDescription="@string/notifications1"
+        android:src="@android:drawable/ic_popup_reminder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/border_dark" />
+
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_pill_white"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:text="@string/to_do_list1"
+        android:textColor="@color/text_dark"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageButton
         android:id="@+id/btnBack"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
         android:background="@drawable/bg_button_white"
         android:contentDescription="@string/back"
         android:src="@android:drawable/ic_menu_revert"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topBar"
-        app:tint="@color/border_dark" />
+        app:tint="@color/border_dark"
+        tools:layout_editor_absoluteY="80dp" />
 
-    <!-- Add task Header Banner (overlapping top border of cream card) -->
     <TextView
         android:id="@+id/tvCategoryHeader"
         android:layout_width="220dp"
         android:layout_height="48dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="140dp"
         android:background="@drawable/bg_header_teal"
         android:elevation="4dp"
         android:fontFamily="sans-serif-medium"
@@ -77,25 +72,20 @@
         android:translationZ="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnBack" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Main Content Card -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mainCard"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_width="363dp"
+        android:layout_height="534dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/bg_card_cream"
         android:paddingHorizontal="20dp"
         android:paddingTop="36dp"
         android:paddingBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnBack">
+        app:layout_constraintStart_toStartOf="parent">
 
         <ScrollView
             android:layout_width="0dp"
@@ -138,7 +128,8 @@
                     android:inputType="text"
                     android:paddingHorizontal="12dp"
                     android:textColor="@color/text_dark"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:ignore="VisualLintTextFieldSize" />
 
                 <!-- Description -->
                 <TextView
@@ -164,7 +155,8 @@
                     android:inputType="textMultiLine"
                     android:padding="12dp"
                     android:textColor="@color/text_dark"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:ignore="VisualLintTextFieldSize" />
 
                 <!-- Category -->
                 <TextView
@@ -206,7 +198,8 @@
                     android:inputType="date"
                     android:paddingHorizontal="12dp"
                     android:textColor="@color/text_dark"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:ignore="VisualLintTextFieldSize" />
 
             </LinearLayout>
         </ScrollView>
@@ -236,7 +229,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:backgroundTint="@null"
-                tools:ignore="TouchTargetSizeCheck" />
+                tools:ignore="TouchTargetSizeCheck,VisualLintButtonSize" />
 
             <Button
                 android:id="@+id/btnCancel"
@@ -252,7 +245,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:backgroundTint="@null"
-                tools:ignore="TouchTargetSizeCheck" />
+                tools:ignore="TouchTargetSizeCheck,VisualLintButtonSize" />
 
         </LinearLayout>
 
