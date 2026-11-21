@@ -21,6 +21,12 @@ SET time_zone = "+00:00";
 -- Database: `todo_listdb`
 --
 
+  CREATE DATABASE IF NOT EXISTS `todo_listdb`
+    DEFAULT CHARACTER SET utf8mb4
+    COLLATE utf8mb4_unicode_ci;
+  USE `todo_listdb`;
+
+  
 -- --------------------------------------------------------
 
 --

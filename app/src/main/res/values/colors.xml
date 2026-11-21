@@ -8,4 +8,6 @@
     <color name="border_dark">#222222</color>
     <color name="date_badge">#FFE3A8</color>
     <color name="text_dark">#1E1E1E</color>
+    <color name="category_delete">#B3261E</color>
+    <color name="text_secondary">#595959</color>
 </resources>

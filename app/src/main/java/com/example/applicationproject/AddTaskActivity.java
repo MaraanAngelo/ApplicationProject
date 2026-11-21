@@ -14,7 +14,20 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 public class AddTaskActivity extends AppCompatActivity {
+    private final ArrayList<Category> categories = new ArrayList<>();
+    private ArrayAdapter<Category> categoryAdapter;
+    private Spinner spinnerCategory;
+    private Spinner spinnerPriority;
+    private Button btnSaveTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +41,26 @@ public class AddTaskActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Setup Category Spinner
-        Spinner spinnerCategory = findViewById(R.id.spinnerCategory);
-        String[] categories = new String[]{"School", "Personal", "Work", "Other"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categories);
-        spinnerCategory.setAdapter(adapter);
+        spinnerCategory = findViewById(R.id.spinnerCategory);
+        categories.add(new Category(0, getString(R.string.no_category)));
+        categoryAdapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                categories
+        );
+        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCategory.setAdapter(categoryAdapter);
+        loadCategories();
+
+        spinnerPriority = findViewById(R.id.spinnerPriority);
+        ArrayAdapter<String> priorityAdapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                new String[]{"Low", "Medium", "High"}
+        );
+        priorityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerPriority.setAdapter(priorityAdapter);
+        spinnerPriority.setSelection(1);
 
         // Back button
         ImageButton btnBack = findViewById(R.id.btnBack);
@@ -43,15 +71,126 @@ public class AddTaskActivity extends AppCompatActivity {
         btnCancel.setOnClickListener(v -> finish());
 
         // Save Task button
-        Button btnSaveTask = findViewById(R.id.btnSaveTask);
+        btnSaveTask = findViewById(R.id.btnSaveTask);
         btnSaveTask.setOnClickListener(v -> {
-            EditText etTitle = findViewById(R.id.etTaskTitle);
-            String title = etTitle.getText().toString().trim();
-            if (title.isEmpty()) {
-                Toast.makeText(this, "Please enter a task title", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "Task saved successfully!", Toast.LENGTH_SHORT).show();
-                finish();
+            saveTask();
+        });
+    }
+
+    private void loadCategories() {
+        ApiClient.get("get_categories.php", new ApiClient.Callback() {
+            @Override
+            public void onSuccess(String response) {
+                try {
+                    JSONArray result = new JSONArray(response);
+                    categories.clear();
+                    categories.add(new Category(0, getString(R.string.no_category)));
+                    for (int i = 0; i < result.length(); i++) {
+                        JSONObject item = result.getJSONObject(i);
+                        categories.add(new Category(
+                                item.getInt("id"),
+                                item.getString("category_name")
+                        ));
+                    }
+                    categoryAdapter.notifyDataSetChanged();
+                } catch (JSONException error) {
+                    Toast.makeText(
+                            AddTaskActivity.this,
+                            getString(R.string.category_response_error, error.getMessage()),
+                            Toast.LENGTH_LONG
+                    ).show();
+                }
+            }
+
+            @Override
+            public void onError(Exception error) {
+                Toast.makeText(
+                        AddTaskActivity.this,
+                        getString(R.string.categories_load_error, error.getMessage()),
+                        Toast.LENGTH_LONG
+                ).show();
+            }
+        });
+    }
+
+    private void saveTask() {
+        EditText titleField = findViewById(R.id.etTaskTitle);
+        EditText descriptionField = findViewById(R.id.etDescription);
+        EditText dueDateField = findViewById(R.id.etDueDate);
+        EditText dueTimeField = findViewById(R.id.etDueTime);
+        String title = titleField.getText().toString().trim();
+        if (title.isEmpty()) {
+            titleField.setError(getString(R.string.title_required));
+            return;
+        }
+
+        final String dueDate;
+        try {
+            dueDate = Task.toDatabaseDate(dueDateField.getText().toString().trim());
+        } catch (IllegalArgumentException error) {
+            dueDateField.setError(error.getMessage());
+            return;
+        }
+
+        final String dueTime;
+        try {
+            dueTime = Task.toDatabaseTime(dueTimeField.getText().toString());
+        } catch (IllegalArgumentException error) {
+            dueTimeField.setError(error.getMessage());
+            return;
+        }
+
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("title", title);
+        parameters.put("description", descriptionField.getText().toString().trim());
+        parameters.put("priority", spinnerPriority.getSelectedItem().toString());
+        parameters.put("due_date", dueDate);
+        if (!dueTime.isEmpty()) {
+            parameters.put("due_time", dueTime);
+        }
+        Category selectedCategory = (Category) spinnerCategory.getSelectedItem();
+        if (selectedCategory != null && selectedCategory.id > 0) {
+            parameters.put("category_id", String.valueOf(selectedCategory.id));
+        }
+
+        btnSaveTask.setEnabled(false);
+        ApiClient.post("add_task.php", parameters, new ApiClient.Callback() {
+            @Override
+            public void onSuccess(String response) {
+                btnSaveTask.setEnabled(true);
+                try {
+                    JSONObject result = new JSONObject(response);
+                    if (result.optBoolean("success")) {
+                        Toast.makeText(
+                                AddTaskActivity.this,
+                                R.string.task_added,
+                                Toast.LENGTH_SHORT
+                        ).show();
+                        finish();
+                    } else {
+                        Toast.makeText(
+                                AddTaskActivity.this,
+                                result.optString("message", getString(R.string.task_save_failed)),
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                } catch (JSONException error) {
+                    Toast.makeText(
+                            AddTaskActivity.this,
+                            getString(R.string.task_response_error, error.getMessage()),
+                            Toast.LENGTH_LONG
+                    ).show();
+                }
+            }
+
+            @Override
+            public void onError(Exception error) {
+                btnSaveTask.setEnabled(true);
+                Toast.makeText(
+                        AddTaskActivity.this,
+                        getString(R.string.connection_error, error.getMessage()),
+                        Toast.LENGTH_LONG
+                ).show();
             }
         });
     }

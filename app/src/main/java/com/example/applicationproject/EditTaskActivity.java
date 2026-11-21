@@ -9,12 +9,30 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 public class EditTaskActivity extends AppCompatActivity {
+    private final ArrayList<Category> categories = new ArrayList<>();
+    private ArrayAdapter<Category> categoryAdapter;
+    private Spinner spinnerCategory;
+    private Spinner spinnerPriority;
+    private Button btnSaveChanges;
+    private Button btnDelete;
+    private int taskId;
+    private int selectedCategoryId;
+    private boolean categoriesLoaded;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,35 +46,214 @@ public class EditTaskActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Setup Category Spinner
-        Spinner spinnerCategory = findViewById(R.id.spinnerCategory);
-        String[] categories = new String[]{"School", "Personal", "Work", "Other"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categories);
-        spinnerCategory.setAdapter(adapter);
+        taskId = getIntent().getIntExtra("task_id", 0);
+        selectedCategoryId = getIntent().getIntExtra("task_category_id", 0);
+        ((EditText) findViewById(R.id.etTaskTitle))
+                .setText(getIntent().getStringExtra("task_title"));
+        ((EditText) findViewById(R.id.etDescription))
+                .setText(getIntent().getStringExtra("task_description"));
+        ((EditText) findViewById(R.id.etDueDate))
+                .setText(Task.toFormDate(getIntent().getStringExtra("task_due_date")));
+        ((EditText) findViewById(R.id.etDueTime))
+                .setText(Task.toDisplayTime(getIntent().getStringExtra("task_due_time")));
 
-        // Get passed task title if any
-        String taskTitle = getIntent().getStringExtra("task_title");
-        if (taskTitle != null) {
-            EditText etTitle = findViewById(R.id.etTaskTitle);
-            etTitle.setText(taskTitle);
-        }
+        spinnerCategory = findViewById(R.id.spinnerCategory);
+        categories.add(new Category(0, getString(R.string.no_category)));
+        categoryAdapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                categories
+        );
+        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCategory.setAdapter(categoryAdapter);
+        loadCategories();
 
-        // Back button
+        spinnerPriority = findViewById(R.id.spinnerPriority);
+        ArrayAdapter<String> priorityAdapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                new String[]{"Low", "Medium", "High"}
+        );
+        priorityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerPriority.setAdapter(priorityAdapter);
+        String taskPriority = getIntent().getStringExtra("task_priority");
+        int priorityPosition = taskPriority == null ? 1 : priorityAdapter.getPosition(taskPriority);
+        spinnerPriority.setSelection(priorityPosition < 0 ? 1 : priorityPosition);
+
         ImageButton btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(v -> finish());
 
-        // Save Changes button
-        Button btnSaveChanges = findViewById(R.id.btnSaveChanges);
-        btnSaveChanges.setOnClickListener(v -> {
-            Toast.makeText(this, "Changes saved successfully!", Toast.LENGTH_SHORT).show();
-            finish();
-        });
+        btnSaveChanges = findViewById(R.id.btnSaveChanges);
+        btnSaveChanges.setOnClickListener(v -> saveChanges());
 
-        // Delete button
-        Button btnDelete = findViewById(R.id.btnDelete);
-        btnDelete.setOnClickListener(v -> {
-            Toast.makeText(this, "Task deleted", Toast.LENGTH_SHORT).show();
-            finish();
+        btnDelete = findViewById(R.id.btnDelete);
+        btnDelete.setOnClickListener(v -> new AlertDialog.Builder(this)
+                .setTitle(R.string.delete_task_title)
+                .setMessage(R.string.delete_task_confirmation)
+                .setNegativeButton(R.string.cancel, null)
+                .setPositiveButton(R.string.delete, (dialog, which) -> deleteTask())
+                .show());
+    }
+
+    private void loadCategories() {
+        ApiClient.get("get_categories.php", new ApiClient.Callback() {
+            @Override
+            public void onSuccess(String response) {
+                try {
+                    JSONArray result = new JSONArray(response);
+                    categories.clear();
+                    categories.add(new Category(0, getString(R.string.no_category)));
+                    int selectedPosition = 0;
+                    for (int i = 0; i < result.length(); i++) {
+                        JSONObject item = result.getJSONObject(i);
+                        Category category = new Category(
+                                item.getInt("id"),
+                                item.getString("category_name")
+                        );
+                        categories.add(category);
+                        if (category.id == selectedCategoryId) {
+                            selectedPosition = categories.size() - 1;
+                        }
+                    }
+                    categoryAdapter.notifyDataSetChanged();
+                    spinnerCategory.setSelection(selectedPosition);
+                    categoriesLoaded = true;
+                } catch (JSONException error) {
+                    Toast.makeText(
+                            EditTaskActivity.this,
+                            getString(R.string.category_response_error, error.getMessage()),
+                            Toast.LENGTH_LONG
+                    ).show();
+                }
+            }
+
+            @Override
+            public void onError(Exception error) {
+                Toast.makeText(
+                        EditTaskActivity.this,
+                        getString(R.string.categories_load_error, error.getMessage()),
+                        Toast.LENGTH_LONG
+                ).show();
+            }
         });
+    }
+
+    private void saveChanges() {
+        EditText titleField = findViewById(R.id.etTaskTitle);
+        EditText descriptionField = findViewById(R.id.etDescription);
+        EditText dueDateField = findViewById(R.id.etDueDate);
+        EditText dueTimeField = findViewById(R.id.etDueTime);
+        String title = titleField.getText().toString().trim();
+        if (title.isEmpty()) {
+            titleField.setError(getString(R.string.title_required));
+            return;
+        }
+        if (taskId <= 0) {
+            Toast.makeText(this, R.string.task_id_missing, Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (!categoriesLoaded) {
+            Toast.makeText(this, R.string.categories_not_ready, Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        final String dueDate;
+        try {
+            dueDate = Task.toDatabaseDate(dueDateField.getText().toString().trim());
+        } catch (IllegalArgumentException error) {
+            dueDateField.setError(error.getMessage());
+            return;
+        }
+
+        final String dueTime;
+        try {
+            dueTime = Task.toDatabaseTime(dueTimeField.getText().toString());
+        } catch (IllegalArgumentException error) {
+            dueTimeField.setError(error.getMessage());
+            return;
+        }
+
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("id", String.valueOf(taskId));
+        parameters.put("title", title);
+        parameters.put("description", descriptionField.getText().toString().trim());
+        parameters.put("priority", spinnerPriority.getSelectedItem().toString());
+        parameters.put("due_date", dueDate);
+        if (!dueTime.isEmpty()) {
+            parameters.put("due_time", dueTime);
+        }
+        Category selectedCategory = (Category) spinnerCategory.getSelectedItem();
+        if (selectedCategory != null && selectedCategory.id > 0) {
+            parameters.put("category_id", String.valueOf(selectedCategory.id));
+        }
+
+        btnSaveChanges.setEnabled(false);
+        ApiClient.post("update_task.php", parameters, new ApiClient.Callback() {
+            @Override
+            public void onSuccess(String response) {
+                btnSaveChanges.setEnabled(true);
+                showMutationResult(response, R.string.task_updated);
+            }
+
+            @Override
+            public void onError(Exception error) {
+                btnSaveChanges.setEnabled(true);
+                Toast.makeText(
+                        EditTaskActivity.this,
+                        getString(R.string.connection_error, error.getMessage()),
+                        Toast.LENGTH_LONG
+                ).show();
+            }
+        });
+    }
+
+    private void deleteTask() {
+        if (taskId <= 0) {
+            Toast.makeText(this, R.string.task_id_missing, Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        btnDelete.setEnabled(false);
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("id", String.valueOf(taskId));
+        ApiClient.post("delete_task.php", parameters, new ApiClient.Callback() {
+            @Override
+            public void onSuccess(String response) {
+                btnDelete.setEnabled(true);
+                showMutationResult(response, R.string.task_deleted);
+            }
+
+            @Override
+            public void onError(Exception error) {
+                btnDelete.setEnabled(true);
+                Toast.makeText(
+                        EditTaskActivity.this,
+                        getString(R.string.connection_error, error.getMessage()),
+                        Toast.LENGTH_LONG
+                ).show();
+            }
+        });
+    }
+
+    private void showMutationResult(String response, int successMessage) {
+        try {
+            JSONObject result = new JSONObject(response);
+            if (result.optBoolean("success")) {
+                Toast.makeText(this, successMessage, Toast.LENGTH_SHORT).show();
+                finish();
+            } else {
+                Toast.makeText(
+                        this,
+                        result.optString("message", getString(R.string.task_save_failed)),
+                        Toast.LENGTH_LONG
+                ).show();
+            }
+        } catch (JSONException error) {
+            Toast.makeText(
+                    this,
+                    getString(R.string.task_response_error, error.getMessage()),
+                    Toast.LENGTH_LONG
+            ).show();
+        }
     }
 }
