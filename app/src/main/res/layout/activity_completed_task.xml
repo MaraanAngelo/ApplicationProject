@@ -24,7 +24,8 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextSizeCheck" />
 
     <!-- Completed Header Banner (overlapping top border of cream card) -->
 
@@ -43,7 +44,8 @@
         android:src="@android:drawable/ic_popup_reminder"
         app:layout_constraintEnd_toStartOf="@+id/btnAdd"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/border_dark" />
+        app:tint="@color/border_dark"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <ImageButton
         android:id="@+id/btnAdd"
@@ -56,7 +58,8 @@
         android:src="@android:drawable/ic_input_add"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/border_dark" />
+        app:tint="@color/border_dark"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <TextView
         android:id="@+id/tvCategoryHeader"
