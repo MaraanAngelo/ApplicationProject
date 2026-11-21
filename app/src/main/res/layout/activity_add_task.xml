@@ -8,86 +8,49 @@
     android:background="@color/app_teal"
     tools:context=".AddTaskActivity">
 
-    <!-- Top Header Bar -->
-
-    <!-- Back Arrow Button -->
-
-    <!-- Add task Header Banner (overlapping top border of cream card) -->
-
-    <!-- Main Content Card -->
-    <ImageButton
-        android:id="@+id/btnNotification"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/bg_button_white"
-        android:contentDescription="@string/notifications1"
-        android:src="@android:drawable/ic_popup_reminder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/border_dark"
-        tools:ignore="TouchTargetSizeCheck" />
-
-    <TextView
-        android:layout_width="300dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_weight="1"
-        android:background="@drawable/bg_pill_white"
-        android:fontFamily="sans-serif-medium"
-        android:gravity="center"
-        android:text="@string/to_do_list1"
-        android:textColor="@color/text_dark"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageButton
         android:id="@+id/btnBack"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="14dp"
         android:background="@drawable/bg_button_white"
         android:contentDescription="@string/back"
         android:src="@android:drawable/ic_menu_revert"
         app:layout_constraintStart_toStartOf="parent"
-        app:tint="@color/border_dark"
-        tools:layout_editor_absoluteY="80dp"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/text_dark" />
 
     <TextView
-        android:id="@+id/tvCategoryHeader"
-        android:layout_width="220dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="140dp"
-        android:background="@drawable/bg_header_teal"
-        android:elevation="4dp"
+        android:id="@+id/tvAddTaskTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="20dp"
         android:fontFamily="sans-serif-medium"
-        android:gravity="center"
         android:text="@string/add_task1"
-        android:textColor="@color/text_dark"
-        android:textSize="22sp"
+        android:textColor="@color/white"
+        android:textSize="24sp"
         android:textStyle="bold"
-        android:translationZ="4dp"
+        app:layout_constraintBottom_toBottomOf="@id/btnBack"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@id/btnBack"
+        app:layout_constraintTop_toTopOf="@id/btnBack" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mainCard"
-        android:layout_width="363dp"
-        android:layout_height="534dp"
-        android:layout_marginBottom="30dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="18dp"
         android:background="@drawable/bg_card_cream"
-        android:paddingHorizontal="20dp"
-        android:paddingTop="36dp"
-        android:paddingBottom="20dp"
+        android:padding="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnBack">
 
         <ScrollView
             android:layout_width="0dp"
@@ -100,116 +63,130 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
-                style="?android:attr/buttonBarStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingTop="8dp"
+                android:paddingTop="4dp"
                 android:paddingBottom="8dp">
 
-                <!-- Task Title -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-medium"
                     android:text="@string/task_title"
                     android:textColor="@color/text_dark"
-                    android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/etTaskTitle"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="16dp"
-                    android:autofillHints="name"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="14dp"
                     android:background="@drawable/bg_edit_text"
-                    android:fontFamily="sans-serif"
                     android:hint="@string/enter_task_title"
-                    android:inputType="text"
+                    android:inputType="textCapSentences"
                     android:paddingHorizontal="12dp"
                     android:textColor="@color/text_dark"
                     android:textSize="16sp"
-                    tools:ignore="VisualLintTextFieldSize" />
+                    tools:ignore="Autofill,VisualLintTextFieldSize" />
 
-                <!-- Description -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-medium"
                     android:text="@string/description_optional"
                     android:textColor="@color/text_dark"
-                    android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/etDescription"
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="16dp"
-                    android:autofillHints="name"
+                    android:layout_height="82dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="14dp"
                     android:background="@drawable/bg_edit_text"
-                    android:fontFamily="sans-serif"
                     android:gravity="top|start"
                     android:hint="@string/enter_a_short_description"
-                    android:inputType="textMultiLine"
+                    android:inputType="textCapSentences|textMultiLine"
                     android:padding="12dp"
                     android:textColor="@color/text_dark"
                     android:textSize="16sp"
-                    tools:ignore="VisualLintTextFieldSize" />
+                    tools:ignore="Autofill,VisualLintTextFieldSize" />
 
-                <!-- Category -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-medium"
                     android:text="@string/category"
                     android:textColor="@color/text_dark"
-                    android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <Spinner
                     android:id="@+id/spinnerCategory"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="16dp"
-                    android:background="@drawable/bg_edit_text" />
+                    android:layout_height="50dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="14dp"
+                    android:background="@drawable/bg_edit_text"
+                    android:paddingHorizontal="8dp" />
 
-                <!-- Due Date -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/priority_label"
+                    android:textColor="@color/text_dark"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spinnerPriority"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="14dp"
+                    android:background="@drawable/bg_edit_text"
+                    android:paddingHorizontal="8dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="@string/due_date1"
                     android:textColor="@color/text_dark"
-                    android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/etDueDate"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="4dp"
-                    android:autofillHints="date"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="14dp"
                     android:background="@drawable/bg_edit_text"
-                    android:fontFamily="sans-serif"
                     android:hint="@string/mm_dd_yyyy"
                     android:inputType="date"
                     android:paddingHorizontal="12dp"
                     android:textColor="@color/text_dark"
-                    android:textSize="16sp"
-                    tools:ignore="VisualLintTextFieldSize" />
+                    tools:ignore="Autofill,VisualLintTextFieldSize" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/due_time_label"
+                    android:textColor="@color/text_dark"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etDueTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/bg_edit_text"
+                    android:hint="@string/due_time_hint"
+                    android:inputType="time"
+                    android:paddingHorizontal="12dp"
+                    android:textColor="@color/text_dark"
+                    tools:ignore="Autofill,VisualLintTextFieldSize" />
             </LinearLayout>
         </ScrollView>
 
-        <!-- Bottom Action Buttons -->
         <LinearLayout
             android:id="@+id/layoutButtons"
-            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="52dp"
             android:orientation="horizontal"
@@ -219,38 +196,27 @@
 
             <Button
                 android:id="@+id/btnSaveTask"
-                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="6dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_button_teal"
-                android:fontFamily="sans-serif-medium"
                 android:text="@string/save_task"
                 android:textColor="@color/text_dark"
-                android:textSize="16sp"
                 android:textStyle="bold"
-                app:backgroundTint="@null"
-                tools:ignore="TouchTargetSizeCheck,VisualLintButtonSize" />
+                app:backgroundTint="@null" />
 
             <Button
                 android:id="@+id/btnCancel"
-                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="6dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_button_white"
-                android:fontFamily="sans-serif-medium"
                 android:text="@string/cancel"
                 android:textColor="@color/text_dark"
-                android:textSize="16sp"
                 android:textStyle="bold"
-                app:backgroundTint="@null"
-                tools:ignore="TouchTargetSizeCheck,VisualLintButtonSize" />
-
+                app:backgroundTint="@null" />
         </LinearLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

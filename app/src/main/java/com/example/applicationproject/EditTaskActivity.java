@@ -9,6 +9,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -26,10 +27,12 @@ public class EditTaskActivity extends AppCompatActivity {
     private final ArrayList<Category> categories = new ArrayList<>();
     private ArrayAdapter<Category> categoryAdapter;
     private Spinner spinnerCategory;
+    private Spinner spinnerPriority;
     private Button btnSaveChanges;
     private Button btnDelete;
     private int taskId;
     private int selectedCategoryId;
+    private boolean categoriesLoaded;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,8 @@ public class EditTaskActivity extends AppCompatActivity {
                 .setText(getIntent().getStringExtra("task_description"));
         ((EditText) findViewById(R.id.etDueDate))
                 .setText(Task.toFormDate(getIntent().getStringExtra("task_due_date")));
+        ((EditText) findViewById(R.id.etDueTime))
+                .setText(Task.toDisplayTime(getIntent().getStringExtra("task_due_time")));
 
         spinnerCategory = findViewById(R.id.spinnerCategory);
         categories.add(new Category(0, getString(R.string.no_category)));
@@ -63,6 +68,18 @@ public class EditTaskActivity extends AppCompatActivity {
         spinnerCategory.setAdapter(categoryAdapter);
         loadCategories();
 
+        spinnerPriority = findViewById(R.id.spinnerPriority);
+        ArrayAdapter<String> priorityAdapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                new String[]{"Low", "Medium", "High"}
+        );
+        priorityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerPriority.setAdapter(priorityAdapter);
+        String taskPriority = getIntent().getStringExtra("task_priority");
+        int priorityPosition = taskPriority == null ? 1 : priorityAdapter.getPosition(taskPriority);
+        spinnerPriority.setSelection(priorityPosition < 0 ? 1 : priorityPosition);
+
         ImageButton btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(v -> finish());
 
@@ -70,7 +87,12 @@ public class EditTaskActivity extends AppCompatActivity {
         btnSaveChanges.setOnClickListener(v -> saveChanges());
 
         btnDelete = findViewById(R.id.btnDelete);
-        btnDelete.setOnClickListener(v -> deleteTask());
+        btnDelete.setOnClickListener(v -> new AlertDialog.Builder(this)
+                .setTitle(R.string.delete_task_title)
+                .setMessage(R.string.delete_task_confirmation)
+                .setNegativeButton(R.string.cancel, null)
+                .setPositiveButton(R.string.delete, (dialog, which) -> deleteTask())
+                .show());
     }
 
     private void loadCategories() {
@@ -95,6 +117,7 @@ public class EditTaskActivity extends AppCompatActivity {
                     }
                     categoryAdapter.notifyDataSetChanged();
                     spinnerCategory.setSelection(selectedPosition);
+                    categoriesLoaded = true;
                 } catch (JSONException error) {
                     Toast.makeText(
                             EditTaskActivity.this,
@@ -119,6 +142,7 @@ public class EditTaskActivity extends AppCompatActivity {
         EditText titleField = findViewById(R.id.etTaskTitle);
         EditText descriptionField = findViewById(R.id.etDescription);
         EditText dueDateField = findViewById(R.id.etDueDate);
+        EditText dueTimeField = findViewById(R.id.etDueTime);
         String title = titleField.getText().toString().trim();
         if (title.isEmpty()) {
             titleField.setError(getString(R.string.title_required));
@@ -126,6 +150,10 @@ public class EditTaskActivity extends AppCompatActivity {
         }
         if (taskId <= 0) {
             Toast.makeText(this, R.string.task_id_missing, Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (!categoriesLoaded) {
+            Toast.makeText(this, R.string.categories_not_ready, Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -137,13 +165,23 @@ public class EditTaskActivity extends AppCompatActivity {
             return;
         }
 
+        final String dueTime;
+        try {
+            dueTime = Task.toDatabaseTime(dueTimeField.getText().toString());
+        } catch (IllegalArgumentException error) {
+            dueTimeField.setError(error.getMessage());
+            return;
+        }
+
         Map<String, String> parameters = new HashMap<>();
         parameters.put("id", String.valueOf(taskId));
         parameters.put("title", title);
         parameters.put("description", descriptionField.getText().toString().trim());
-        parameters.put("priority", getIntent().getStringExtra("task_priority") == null
-                ? "Medium" : getIntent().getStringExtra("task_priority"));
+        parameters.put("priority", spinnerPriority.getSelectedItem().toString());
         parameters.put("due_date", dueDate);
+        if (!dueTime.isEmpty()) {
+            parameters.put("due_time", dueTime);
+        }
         Category selectedCategory = (Category) spinnerCategory.getSelectedItem();
         if (selectedCategory != null && selectedCategory.id > 0) {
             parameters.put("category_id", String.valueOf(selectedCategory.id));

@@ -1,313 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    style="?android:attr/buttonBarStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_teal"
-    tools:context=".CompletedActivity">
+    android:background="@color/app_teal">
 
-    <!-- Top Header Bar -->
-    <TextView
-        android:layout_width="250dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_weight="1"
-        android:background="@drawable/bg_pill_white"
-        android:fontFamily="sans-serif-medium"
-        android:gravity="center"
-        android:text="@string/to_do_list"
-        android:textColor="@color/text_dark"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="TextSizeCheck" />
-
-    <!-- Completed Header Banner (overlapping top border of cream card) -->
-
-    <!-- Main Content Card -->
-
-    <!-- Bottom Navigation Bar -->
-
-    <ImageButton
-        android:id="@+id/btnNotification"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="10dp"
+    <LinearLayout
+        android:id="@+id/completedHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="14dp"
         android:layout_marginEnd="20dp"
-        android:background="@drawable/bg_button_white"
-        android:contentDescription="@string/notifications"
-        android:src="@android:drawable/ic_popup_reminder"
-        app:layout_constraintEnd_toStartOf="@+id/btnAdd"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/border_dark"
-        tools:ignore="TouchTargetSizeCheck" />
-
-    <ImageButton
-        android:id="@+id/btnAdd"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/bg_button_white"
-        android:contentDescription="@string/add_task"
-        android:src="@android:drawable/ic_input_add"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/border_dark"
-        tools:ignore="TouchTargetSizeCheck" />
-
-    <TextView
-        android:id="@+id/tvCategoryHeader"
-        android:layout_width="220dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="100dp"
-        android:background="@drawable/bg_header_teal"
-        android:elevation="4dp"
-        android:fontFamily="sans-serif-medium"
-        android:gravity="center"
-        android:text="@string/completed"
-        android:textColor="@color/text_dark"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:translationZ="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/completed"
+                android:textColor="@color/white"
+                android:textSize="26sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvCompletedCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/loading_tasks"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/btnNotification"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bg_button_white"
+            android:contentDescription="@string/notifications"
+            android:src="@android:drawable/ic_popup_reminder"
+            app:tint="@color/text_dark" />
+
+        <ImageButton
+            android:id="@+id/btnAdd"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_button_white"
+            android:contentDescription="@string/add_task"
+            android:src="@android:drawable/ic_input_add"
+            app:tint="@color/text_dark" />
+    </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mainCard"
-        style="?android:attr/buttonBarStyle"
-        android:layout_width="363dp"
-        android:layout_height="500dp"
-        android:layout_marginBottom="28dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/bg_card_cream"
-        android:paddingHorizontal="20dp"
-        android:paddingTop="36dp"
-        android:paddingBottom="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNav"
+        android:padding="16dp"
+        app:layout_constraintBottom_toTopOf="@id/bottomNav"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/completedHeader">
+
+        <TextView
+            android:id="@+id/tvCompletedHeading"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/completed_tasks_title"
+            android:textColor="@color/text_dark"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ScrollView
-            style="?android:attr/buttonBarStyle"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="12dp"
             android:fillViewport="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/tvCompletedHeading">
 
             <LinearLayout
+                android:id="@+id/completedTaskList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp">
-
-                <!-- Task 1: Group Project (Completed) -->
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:layout_editor_absoluteY="8dp">
-
-                    <CheckBox
-                        android:id="@+id/cbGroup"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:ignore="DuplicateSpeakableTextCheck" />
-
-                    <TextView
-                        android:id="@+id/tvGroupTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="12dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/group_project"
-                        android:textColor="@color/text_dark"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toStartOf="@id/cardDate1"
-                        app:layout_constraintStart_toEndOf="@id/cbGroup"
-                        app:layout_constraintTop_toTopOf="@id/cbGroup" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="4dp"
-                        android:orientation="horizontal"
-                        app:layout_constraintStart_toEndOf="@id/cbGroup"
-                        app:layout_constraintTop_toBottomOf="@id/tvGroupTitle">
-
-                        <TextView
-                            android:id="@+id/tvUndo1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="16dp"
-                            android:background="?attr/selectableItemBackground"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:text="@string/undo"
-                            android:textColor="@color/text_dark"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
-
-                        <TextView
-                            android:id="@+id/tvDelete1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="?attr/selectableItemBackground"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:text="@string/delete"
-                            android:textColor="@color/text_dark"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/cardDate1"
-                        android:layout_width="110dp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_date_badge"
-                        android:fontFamily="sans-serif"
-                        android:padding="8dp"
-                        android:text="@string/due_date_n11_21_26"
-                        android:textColor="@color/text_dark"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <!-- Task 2: Review for Examination (Completed) -->
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    style="?android:attr/buttonBarStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:layout_editor_absoluteY="85dp">
-
-                    <CheckBox
-                        android:id="@+id/cbReview"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tvReviewTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="12dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/review_for_examination"
-                        android:textColor="@color/text_dark"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toStartOf="@id/cardDate2"
-                        app:layout_constraintStart_toEndOf="@id/cbReview"
-                        app:layout_constraintTop_toTopOf="@id/cbReview" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="4dp"
-                        android:orientation="horizontal"
-                        app:layout_constraintStart_toEndOf="@id/cbReview"
-                        app:layout_constraintTop_toBottomOf="@id/tvReviewTitle">
-
-                        <TextView
-                            android:id="@+id/tvUndo2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="16dp"
-                            android:background="?attr/selectableItemBackground"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:text="@string/undo1"
-                            android:textColor="@color/text_dark"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            tools:ignore="TouchTargetSizeCheck" />
-
-                        <TextView
-                            android:id="@+id/tvDelete2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="?attr/selectableItemBackground"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:text="@string/delete1"
-                            android:textColor="@color/text_dark"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            tools:ignore="TouchTargetSizeCheck" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/cardDate2"
-                        android:layout_width="110dp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_date_badge"
-                        android:fontFamily="sans-serif"
-                        android:padding="8dp"
-                        android:text="@string/due_date_n11_17_26"
-                        android:textColor="@color/text_dark"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </LinearLayout>
+                android:orientation="vertical" />
         </ScrollView>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:id="@+id/bottomNav"
-        style="?android:attr/buttonBarButtonStyle"
         android:layout_width="0dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="16dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="12dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
             android:id="@+id/btnHomeNav"
-            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="6dp"
             android:layout_weight="1"
             android:background="@drawable/bg_button_white"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/home"
+            android:text="@string/home1"
             android:textColor="@color/text_dark"
-            android:textSize="18sp"
             android:textStyle="bold"
             app:backgroundTint="@null" />
 
@@ -315,17 +138,12 @@
             android:id="@+id/btnCompletedNav"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="6dp"
             android:layout_weight="1"
             android:background="@drawable/bg_button_teal"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/completed1"
+            android:text="@string/completed2"
             android:textColor="@color/text_dark"
-            android:textSize="18sp"
             android:textStyle="bold"
-            app:backgroundTint="@null"
-            tools:ignore="ButtonStyle,DuplicateSpeakableTextCheck" />
-
+            app:backgroundTint="@null" />
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

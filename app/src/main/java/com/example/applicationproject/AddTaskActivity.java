@@ -26,6 +26,7 @@ public class AddTaskActivity extends AppCompatActivity {
     private final ArrayList<Category> categories = new ArrayList<>();
     private ArrayAdapter<Category> categoryAdapter;
     private Spinner spinnerCategory;
+    private Spinner spinnerPriority;
     private Button btnSaveTask;
 
     @Override
@@ -51,6 +52,16 @@ public class AddTaskActivity extends AppCompatActivity {
         spinnerCategory.setAdapter(categoryAdapter);
         loadCategories();
 
+        spinnerPriority = findViewById(R.id.spinnerPriority);
+        ArrayAdapter<String> priorityAdapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                new String[]{"Low", "Medium", "High"}
+        );
+        priorityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerPriority.setAdapter(priorityAdapter);
+        spinnerPriority.setSelection(1);
+
         // Back button
         ImageButton btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(v -> finish());
@@ -61,7 +72,9 @@ public class AddTaskActivity extends AppCompatActivity {
 
         // Save Task button
         btnSaveTask = findViewById(R.id.btnSaveTask);
-        btnSaveTask.setOnClickListener(v -> saveTask());
+        btnSaveTask.setOnClickListener(v -> {
+            saveTask();
+        });
     }
 
     private void loadCategories() {
@@ -104,6 +117,7 @@ public class AddTaskActivity extends AppCompatActivity {
         EditText titleField = findViewById(R.id.etTaskTitle);
         EditText descriptionField = findViewById(R.id.etDescription);
         EditText dueDateField = findViewById(R.id.etDueDate);
+        EditText dueTimeField = findViewById(R.id.etDueTime);
         String title = titleField.getText().toString().trim();
         if (title.isEmpty()) {
             titleField.setError(getString(R.string.title_required));
@@ -118,11 +132,22 @@ public class AddTaskActivity extends AppCompatActivity {
             return;
         }
 
+        final String dueTime;
+        try {
+            dueTime = Task.toDatabaseTime(dueTimeField.getText().toString());
+        } catch (IllegalArgumentException error) {
+            dueTimeField.setError(error.getMessage());
+            return;
+        }
+
         Map<String, String> parameters = new HashMap<>();
         parameters.put("title", title);
         parameters.put("description", descriptionField.getText().toString().trim());
-        parameters.put("priority", "Medium");
+        parameters.put("priority", spinnerPriority.getSelectedItem().toString());
         parameters.put("due_date", dueDate);
+        if (!dueTime.isEmpty()) {
+            parameters.put("due_time", dueTime);
+        }
         Category selectedCategory = (Category) spinnerCategory.getSelectedItem();
         if (selectedCategory != null && selectedCategory.id > 0) {
             parameters.put("category_id", String.valueOf(selectedCategory.id));
