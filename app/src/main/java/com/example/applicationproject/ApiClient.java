@@ -19,7 +19,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 final class ApiClient {
-    // Android emulator address for the host computer running XAMPP.
+    // Use 10.0.2.2 for the emulator or the computer's LAN IP for a physical phone.
     private static final String BASE_URL = "http://192.168.18.5/ApplicationProject/";
     private static final ExecutorService EXECUTOR = Executors.newSingleThreadExecutor();
     private static final Handler MAIN_HANDLER = new Handler(Looper.getMainLooper());

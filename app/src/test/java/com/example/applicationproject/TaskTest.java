@@ -20,4 +20,16 @@ public class TaskTest {
     public void rejectsInvalidDate() {
         Task.toDatabaseDate("02/30/2026");
     }
+
+    @Test
+    public void normalizesOptionalTime() {
+        assertEquals("09:05:00", Task.toDatabaseTime("9:05"));
+        assertEquals("21:05:00", Task.toDatabaseTime("9:05 PM"));
+        assertEquals("", Task.toDatabaseTime(""));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void rejectsInvalidTime() {
+        Task.toDatabaseTime("25:80");
+    }
 }

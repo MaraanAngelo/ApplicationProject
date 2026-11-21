@@ -81,6 +81,38 @@ final class Task {
         }
     }
 
+    static String toDatabaseTime(String input) {
+        String value = input.trim();
+        if (value.isEmpty()) {
+            return "";
+        }
+        String[] patterns = {
+                "H:mm",
+                "HH:mm",
+                "H:mm:ss",
+                "HH:mm:ss",
+                "h:mm a",
+                "hh:mm a"
+        };
+        for (String pattern : patterns) {
+            SimpleDateFormat formatter = new SimpleDateFormat(pattern, Locale.US);
+            formatter.setLenient(false);
+            ParsePosition position = new ParsePosition(0);
+            Date date = formatter.parse(value, position);
+            if (date != null && position.getIndex() == value.length()) {
+                return new SimpleDateFormat("HH:mm:ss", Locale.US).format(date);
+            }
+        }
+        throw new IllegalArgumentException("Enter a valid time as HH:MM.");
+    }
+
+    static String toDisplayTime(String databaseTime) {
+        if (databaseTime == null || databaseTime.isEmpty()) {
+            return "";
+        }
+        return databaseTime.length() >= 5 ? databaseTime.substring(0, 5) : databaseTime;
+    }
+
     private static Date parseDate(String input, String... patterns) {
         for (String pattern : patterns) {
             SimpleDateFormat formatter = new SimpleDateFormat(pattern, Locale.US);
