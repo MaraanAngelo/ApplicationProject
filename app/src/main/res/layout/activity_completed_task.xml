@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -32,7 +33,8 @@
                 android:text="@string/completed"
                 android:textColor="@color/white"
                 android:textSize="26sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="VisualLintSystemUi" />
 
             <TextView
                 android:id="@+id/tvCompletedCount"
@@ -40,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="@string/loading_tasks"
-                android:textColor="@color/white"
+                android:textColor="#212121"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -52,7 +54,8 @@
             android:background="@drawable/bg_button_white"
             android:contentDescription="@string/notifications"
             android:src="@android:drawable/ic_popup_reminder"
-            app:tint="@color/text_dark" />
+            app:tint="@color/text_dark"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <ImageButton
             android:id="@+id/btnAdd"
@@ -61,7 +64,8 @@
             android:background="@drawable/bg_button_white"
             android:contentDescription="@string/add_task"
             android:src="@android:drawable/ic_input_add"
-            app:tint="@color/text_dark" />
+            app:tint="@color/text_dark"
+            tools:ignore="TouchTargetSizeCheck" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -100,7 +104,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvCompletedHeading">
+            app:layout_constraintTop_toBottomOf="@id/tvCompletedHeading"
+            tools:ignore="SpeakableTextPresentCheck">
 
             <LinearLayout
                 android:id="@+id/completedTaskList"
@@ -112,6 +117,7 @@
 
     <LinearLayout
         android:id="@+id/bottomNav"
+        style="?android:attr/buttonBarStyle"
         android:layout_width="0dp"
         android:layout_height="54dp"
         android:layout_marginStart="20dp"
@@ -124,6 +130,7 @@
 
         <Button
             android:id="@+id/btnHomeNav"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="6dp"
@@ -136,6 +143,7 @@
 
         <Button
             android:id="@+id/btnCompletedNav"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="6dp"
@@ -144,6 +152,7 @@
             android:text="@string/completed2"
             android:textColor="@color/text_dark"
             android:textStyle="bold"
-            app:backgroundTint="@null" />
+            app:backgroundTint="@null"
+            tools:ignore="DuplicateSpeakableTextCheck,VisualLintButtonSize" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

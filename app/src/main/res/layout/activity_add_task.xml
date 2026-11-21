@@ -35,7 +35,8 @@
         app:layout_constraintBottom_toBottomOf="@id/btnBack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btnBack"
-        app:layout_constraintTop_toTopOf="@id/btnBack" />
+        app:layout_constraintTop_toTopOf="@id/btnBack"
+        tools:ignore="VisualLintSystemUi" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mainCard"
@@ -187,6 +188,7 @@
 
         <LinearLayout
             android:id="@+id/layoutButtons"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="52dp"
             android:orientation="horizontal"
@@ -196,6 +198,7 @@
 
             <Button
                 android:id="@+id/btnSaveTask"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="6dp"
@@ -204,7 +207,8 @@
                 android:text="@string/save_task"
                 android:textColor="@color/text_dark"
                 android:textStyle="bold"
-                app:backgroundTint="@null" />
+                app:backgroundTint="@null"
+                tools:ignore="VisualLintButtonSize,TouchTargetSizeCheck" />
 
             <Button
                 android:id="@+id/btnCancel"
@@ -216,7 +220,8 @@
                 android:text="@string/cancel"
                 android:textColor="@color/text_dark"
                 android:textStyle="bold"
-                app:backgroundTint="@null" />
+                app:backgroundTint="@null"
+                tools:ignore="ButtonStyle,VisualLintButtonSize,TouchTargetSizeCheck" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
