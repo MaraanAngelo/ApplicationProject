@@ -70,147 +70,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="20dp"
-            android:orientation="vertical"
+            android:fillViewport="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvCategoryHeader">
 
-            <!-- Task 1: Coding Assignment -->
-
-            <!-- Task 2: Research Paper -->
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
+                android:id="@+id/taskList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:paddingBottom="12dp">
-
-                <CheckBox
-                    android:id="@+id/cbCoding"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="DuplicateSpeakableTextCheck" />
-
-                <TextView
-                    android:id="@+id/tvCodingTitle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="12dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="@string/coding_assignment1"
-                    android:textColor="@color/text_dark"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@id/cardDate1"
-                    app:layout_constraintStart_toEndOf="@id/cbCoding"
-                    app:layout_constraintTop_toTopOf="@id/cbCoding" />
-
-                <TextView
-                    android:id="@+id/tvEditCoding"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="4dp"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:minWidth="48dp"
-                    android:minHeight="48dp"
-                    android:text="@string/edit1"
-                    android:textColor="@color/text_dark"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@id/cbCoding"
-                    app:layout_constraintTop_toBottomOf="@id/tvCodingTitle"
-                    tools:ignore="DuplicateSpeakableTextCheck" />
-
-                <!-- Due Date Card 1 -->
-                <TextView
-                    android:id="@+id/cardDate1"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_date_badge"
-                    android:fontFamily="sans-serif"
-                    android:padding="8dp"
-                    android:text="@string/due_date_n11_20_26"
-                    android:textColor="@color/text_dark"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <CheckBox
-                    android:id="@+id/cbResearch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvResearchTitle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="12dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="@string/research_paper"
-                    android:textColor="@color/text_dark"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@id/cardDate2"
-                    app:layout_constraintStart_toEndOf="@id/cbResearch"
-                    app:layout_constraintTop_toTopOf="@id/cbResearch" />
-
-                <TextView
-                    android:id="@+id/tvEditResearch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="4dp"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:minWidth="48dp"
-                    android:minHeight="48dp"
-                    android:text="@string/edit"
-                    android:textColor="@color/text_dark"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@id/cbResearch"
-                    app:layout_constraintTop_toBottomOf="@id/tvResearchTitle" />
-
-                <!-- Due Date Card 2 -->
-                <TextView
-                    android:id="@+id/cardDate2"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_date_badge"
-                    android:fontFamily="sans-serif"
-                    android:padding="8dp"
-                    android:text="@string/due_date_n12_15_27"
-                    android:textColor="@color/text_dark"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </LinearLayout>
+                android:orientation="vertical"
+                android:paddingBottom="8dp" />
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

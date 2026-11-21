@@ -58,4 +58,22 @@
     <string name="_11_20_26">11/20/26</string>
     <string name="coding_assignment2">Coding Assignment</string>
     <string name="edit_task">Edit task</string>
+    <string name="pending_tasks">To-Do</string>
+    <string name="home_screen">Home screen</string>
+    <string name="loading_tasks">Loading tasks…</string>
+    <string name="no_pending_tasks">No pending tasks. Tap + to add one.</string>
+    <string name="unable_to_read_tasks">Could not read the task list.</string>
+    <string name="unable_to_load_tasks">Could not load tasks.</string>
+    <string name="connection_error">Connection failed: %1$s</string>
+    <string name="task_response_error">Invalid server response: %1$s</string>
+    <string name="due_date_value">Due date: %1$s</string>
+    <string name="no_category">No category</string>
+    <string name="category_response_error">Invalid category response: %1$s</string>
+    <string name="categories_load_error">Could not load categories: %1$s</string>
+    <string name="title_required">Enter a task title.</string>
+    <string name="task_added">Task added.</string>
+    <string name="task_updated">Task updated.</string>
+    <string name="task_deleted">Task deleted.</string>
+    <string name="task_save_failed">The task could not be saved.</string>
+    <string name="task_id_missing">Task ID is missing. Return home and try again.</string>
 </resources>
