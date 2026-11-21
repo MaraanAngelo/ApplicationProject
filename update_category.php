@@ -1,3 +1,4 @@
+
 <?php
 header("Content-Type: application/json");
 include 'connection.php';
@@ -13,12 +14,10 @@ if (empty($id) || !is_numeric($id) || $id <= 0 || empty($category_name)) {
     exit;
 }
 
-$check_sql = "SELECT id FROM categories WHERE category_name = ? AND id != ?";
+// Check if another category already uses this name
+$check_sql = "SELECT id FROM categories
+              WHERE category_name = ? AND id != ?";
 $check_stmt = mysqli_prepare($conn, $check_sql);
-if (!$check_stmt) {
-    echo json_encode(["success" => false, "message" => mysqli_error($conn)]);
-    exit;
-}
 
 mysqli_stmt_bind_param($check_stmt, "si", $category_name, $id);
 mysqli_stmt_execute($check_stmt);
@@ -29,26 +28,35 @@ if (mysqli_stmt_num_rows($check_stmt) > 0) {
         "success" => false,
         "message" => "Category name already exists."
     ]);
+
     mysqli_stmt_close($check_stmt);
     mysqli_close($conn);
     exit;
 }
+
 mysqli_stmt_close($check_stmt);
 
+// Update category
 $sql = "UPDATE categories SET category_name = ? WHERE id = ?";
 $stmt = mysqli_prepare($conn, $sql);
+
 if (!$stmt) {
-    echo json_encode(["success" => false, "message" => mysqli_error($conn)]);
+    echo json_encode([
+        "success" => false,
+        "message" => mysqli_error($conn)
+    ]);
     exit;
 }
 
 mysqli_stmt_bind_param($stmt, "si", $category_name, $id);
 
 if (mysqli_stmt_execute($stmt)) {
-    echo json_encode([
-        "success" => true,
-        "message" => "Category updated successfully!"
-    ]);
+    if (mysqli_stmt_affected_rows($stmt) >= 0) {
+        echo json_encode([
+            "success" => true,
+            "message" => "Category updated successfully!"
+        ]);
+    }
 } else {
     echo json_encode([
         "success" => false,
