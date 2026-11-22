@@ -39,7 +39,7 @@ final class Task {
     }
 
     static Task fromJson(JSONObject json) throws JSONException {
-        int categoryId = json.isNull("category_id") ? 0 : json.getInt("category_id");
+        int categoryId = json.isNull("category_id") ? 0 : json.optInt("category_id", 0);
         return new Task(
                 json.getInt("id"),
                 json.optString("title", ""),
@@ -53,7 +53,10 @@ final class Task {
     }
 
     static String toDatabaseDate(String input) {
-        Date date = parseDate(input, "M/d/yyyy", "MM/dd/yyyy", "yyyy-MM-dd");
+        if (input == null || input.trim().isEmpty()) {
+            throw new IllegalArgumentException("Enter a valid due date.");
+        }
+        Date date = parseDate(input.trim(), "MM/dd/yyyy", "M/d/yyyy", "MM/dd/yy", "M/d/yy", "yyyy-MM-dd", "yyyy/MM/dd");
         return new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(date);
     }
 
@@ -82,6 +85,9 @@ final class Task {
     }
 
     static String toDatabaseTime(String input) {
+        if (input == null) {
+            return "";
+        }
         String value = input.trim();
         if (value.isEmpty()) {
             return "";
@@ -92,7 +98,9 @@ final class Task {
                 "H:mm:ss",
                 "HH:mm:ss",
                 "h:mm a",
-                "hh:mm a"
+                "hh:mm a",
+                "h:mma",
+                "hh:mma"
         };
         for (String pattern : patterns) {
             SimpleDateFormat formatter = new SimpleDateFormat(pattern, Locale.US);

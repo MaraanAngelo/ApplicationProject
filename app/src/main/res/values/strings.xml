@@ -30,9 +30,6 @@
     <string name="to_do_list2">To-Do list</string>
     <string name="back1">Back</string>
     <string name="notifications2">Notifications</string>
-    <string name="coding_assignment">Coding Assignment</string>
-    <string name="due_date_11_20_26">Due date: 11/20/26</string>
-    <string name="your_coding_assignment_is_due_soon">Your coding assignment is due soon.</string>
     <string name="dismiss">Dismiss</string>
     <string name="to_do_list3">To-Do list</string>
     <string name="completed2">Completed</string>
@@ -41,7 +38,6 @@
     <string name="due_date_n11_20_26">Due date:\n11/20/26</string>
     <string name="due_date_n12_15_27">Due date:\n12/15/27</string>
     <string name="homework">Homework</string>
-    <string name="coding_assignment1">Coding Assignment</string>
     <string name="edit1">Edit</string>
     <string name="edit">Edit</string>
     <string name="research_paper">Research Paper</string>
@@ -56,7 +52,6 @@
     <string name="save_changes">Save Changes</string>
     <string name="enter_a_short_description1">Enter a short description</string>
     <string name="_11_20_26">11/20/26</string>
-    <string name="coding_assignment2">Coding Assignment</string>
     <string name="edit_task">Edit task</string>
     <string name="pending_tasks">To-Do</string>
     <string name="home_screen">Home screen</string>
@@ -108,4 +103,21 @@
     <string name="completed_tasks_title">Finished tasks</string>
     <string name="completed_task_details">Due %1$s  •  %2$s priority</string>
     <string name="categories_not_ready">Categories have not loaded. Check your connection and try again.</string>
+    <string name="complete_task">Complete</string>
+    <string name="task_completed">Task completed!</string>
+    <string name="task_moved_to_pending">Task moved to Pending</string>
+    <string name="select_due_date">Please select a due date.</string>
+    <string name="no_upcoming_notifications">No upcoming notifications at this time.</string>
+    <string name="due_prefix">Due: %1$s</string>
+    <string name="due_date_prefix">Due date: %1$s</string>
+    <string name="default_notification_message">Your task is pending and due soon.</string>
+    <string name="loading_notifications">Loading notifications…</string>
+    <string name="notification_dismissed">Notification dismissed</string>
+    <string name="server_settings">Server Settings</string>
+    <string name="server_url_title">Server IP / URL Configuration</string>
+    <string name="server_url_hint">e.g. 192.168.18.5 or 10.0.2.2</string>
+    <string name="test_connection">Test &amp; Save</string>
+    <string name="lan_ip_preset">Wi-Fi IP (192.168.18.5)</string>
+    <string name="emulator_preset">Emulator IP (10.0.2.2)</string>
+    <string name="connection_success">Successfully connected to server!</string>
 </resources>

@@ -5,6 +5,7 @@ import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -135,11 +136,15 @@ public class CategoriesActivity extends AppCompatActivity {
         nameInput.setText(category == null ? "" : category.name);
         int padding = dp(20);
 
+        FrameLayout container = new FrameLayout(this);
+        container.setPadding(padding, dp(8), padding, 0);
+        container.addView(nameInput);
+
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle(category == null
                         ? R.string.add_category_title
                         : R.string.edit_category_title)
-                .setView(nameInput, padding, dp(8), padding, 0)
+                .setView(container)
                 .setNegativeButton(R.string.cancel, null)
                 .setPositiveButton(category == null
                         ? R.string.add_category_action

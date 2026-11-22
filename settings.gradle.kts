@@ -24,6 +24,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "ApplicationProject"
 include(":app")
-include(":addtask")
-include(":addtasks")
-include(":addtasks2")

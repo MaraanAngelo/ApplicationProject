@@ -1,7 +1,4 @@
-
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 header("Content-Type: application/json");
 include 'connection.php';
 
@@ -15,7 +12,6 @@ if (empty($id) || !is_numeric($id) || $id <= 0) {
     exit;
 }
 
-// Check if category is being used by tasks
 $check_sql = "SELECT COUNT(*) AS total FROM tasks WHERE category_id = ?";
 $check_stmt = mysqli_prepare($conn, $check_sql);
 
@@ -32,19 +28,17 @@ mysqli_stmt_execute($check_stmt);
 
 $result = mysqli_stmt_get_result($check_stmt);
 $row = mysqli_fetch_assoc($result);
-
 mysqli_stmt_close($check_stmt);
 
-if ($row['total'] > 0) {
+if ($row && $row['total'] > 0) {
     echo json_encode([
         "success" => false,
-        "message" => "Cannot delete this category because it is being used by tasks."
+        "message" => "Cannot delete this category because it is assigned to " . $row['total'] . " task(s)."
     ]);
     mysqli_close($conn);
     exit;
 }
 
-// Delete category
 $sql = "DELETE FROM categories WHERE id = ?";
 $stmt = mysqli_prepare($conn, $sql);
 

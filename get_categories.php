@@ -1,4 +1,3 @@
-
 <?php
 header("Content-Type: application/json");
 include 'connection.php';
@@ -8,11 +7,12 @@ $result = mysqli_query($conn, $sql);
 
 if ($result) {
     $categories = [];
-
     while ($row = mysqli_fetch_assoc($result)) {
-        $categories[] = $row;
+        $categories[] = [
+            "id" => (int)$row['id'],
+            "category_name" => $row['category_name']
+        ];
     }
-
     echo json_encode($categories);
 } else {
     echo json_encode([

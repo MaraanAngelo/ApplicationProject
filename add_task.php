@@ -1,19 +1,15 @@
-
 <?php
-
 header("Content-Type: application/json");
-
 include 'connection.php';
 
-// Receive data from Android or test form
-$title = $_POST['title'] ?? '';
-$description = $_POST['description'] ?? '';
-$category_id = $_POST['category_id'] ?? null;
+$title = trim($_POST['title'] ?? '');
+$description = trim($_POST['description'] ?? '');
+$category_id = (!empty($_POST['category_id']) && is_numeric($_POST['category_id']) && intval($_POST['category_id']) > 0) ? intval($_POST['category_id']) : null;
 $priority = $_POST['priority'] ?? 'Medium';
-$due_date = $_POST['due_date'] ?? '';
-$due_time = $_POST['due_time'] ?? null;
+$due_date = trim($_POST['due_date'] ?? '');
+$due_time = (!empty($_POST['due_time']) && trim($_POST['due_time']) !== '') ? trim($_POST['due_time']) : null;
+$status = $_POST['status'] ?? 'Pending';
 
-// Check required fields
 if (empty($title) || empty($due_date)) {
     echo json_encode([
         "success" => false,
@@ -22,12 +18,7 @@ if (empty($title) || empty($due_date)) {
     exit;
 }
 
-// Insert task into database
-$sql = "INSERT INTO tasks
-        (title, description, category_id, priority,
-         due_date, due_time, status)
-        VALUES (?, ?, ?, ?, ?, ?, 'Pending')";
-
+$sql = "INSERT INTO tasks (title, description, category_id, priority, due_date, due_time, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
 $stmt = mysqli_prepare($conn, $sql);
 
 if (!$stmt) {
@@ -38,36 +29,31 @@ if (!$stmt) {
     exit;
 }
 
-// Bind parameters
 mysqli_stmt_bind_param(
     $stmt,
-    "ssisss",
+    "ssissss",
     $title,
     $description,
     $category_id,
     $priority,
     $due_date,
-    $due_time
+    $due_time,
+    $status
 );
 
 if (mysqli_stmt_execute($stmt)) {
-
     echo json_encode([
         "success" => true,
         "message" => "Task added successfully!",
-        "task_id" => mysqli_insert_id($conn)
+        "task_id" => (int)mysqli_insert_id($conn)
     ]);
-
 } else {
-
     echo json_encode([
         "success" => false,
         "message" => mysqli_stmt_error($stmt)
     ]);
-
 }
 
 mysqli_stmt_close($stmt);
 mysqli_close($conn);
-
 ?>

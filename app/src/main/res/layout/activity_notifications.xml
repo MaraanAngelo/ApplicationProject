@@ -50,7 +50,7 @@
         app:layout_constraintTop_toBottomOf="@id/topBar"
         app:tint="@color/border_dark" />
 
-    <!-- Notifications Header Banner (overlapping top border of cream card) -->
+    <!-- Notifications Header Banner -->
     <TextView
         android:id="@+id/tvCategoryHeader"
         android:layout_width="220dp"
@@ -87,59 +87,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnBack">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            android:orientation="vertical"
+            android:fillViewport="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/notificationsList"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/coding_assignment"
-                android:textColor="@color/text_dark"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:background="@drawable/bg_date_badge"
-                android:padding="8dp"
-                android:text="@string/due_date_11_20_26"
-                android:textColor="@color/text_dark"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:fontFamily="sans-serif"
-                android:text="@string/your_coding_assignment_is_due_soon"
-                android:textColor="@color/text_dark"
-                android:textSize="15sp" />
-
-            <Button
-                android:id="@+id/btnDismiss"
-                android:layout_width="120dp"
-                android:layout_height="48dp"
-                android:background="@drawable/bg_button_white"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/dismiss"
-                android:textColor="@color/text_dark"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:backgroundTint="@null" />
-
-        </LinearLayout>
+                android:orientation="vertical"
+                android:paddingTop="8dp" />
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
